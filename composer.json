@@ -1,0 +1,19 @@
+{
+	"name": "cmsgears/widget-comment",
+	"description": "The Comment Widget for CMSGears. It provide options to write or view comments.",
+	"homepage": "http://www.cmsgears.org",
+	"type": "package",
+	"keywords": [ "yii2", "cmsgears", "widget", "comment" ],
+	"license": "GPLv3",
+	"support": {
+		"resources": "http://www.cmsgears.org/"
+	},
+	"autoload": {
+		"psr-4": {
+			"cmsgears\\widgets\\comment\\": ""
+		}
+	},
+    "require": {
+        "cmsgears/module-core": "*"
+    }
+}
