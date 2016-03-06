@@ -1,5 +1,5 @@
 <?php
-namespace widgets\comment;
+namespace cmsgears\widgets\comment;
 
 // Yii Imports
 use \Yii;
@@ -46,6 +46,10 @@ class SubmitComment extends \cmsgears\core\common\base\Widget {
 	 */
     public $parentType  = null;
 
+    public $templateDir = '@cmsgears/widget-comment/views';
+    
+    public $template    = 'submit';
+
 	// Private Variables --------------------
 
 	// Constructor and Initialisation ------------------------------
@@ -75,7 +79,7 @@ class SubmitComment extends \cmsgears\core\common\base\Widget {
 
 		$formHtml		= [];
 
-		$viewPath		= $this->template . '/submit'; 
+		$viewPath		= $this->template . '/simple'; 
 
 		$commentsHtml[]	= $this->render( $viewPath, [ 
 								'url' => $this->url, 'type' => $this->type, 'rating' => $this->rating,

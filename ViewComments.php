@@ -1,5 +1,5 @@
 <?php
-namespace widgets\comment;
+namespace cmsgears\widgets\comment;
 
 // Yii Imports
 use \Yii;
@@ -47,7 +47,7 @@ class ViewComments extends \cmsgears\core\common\base\Widget {
 	 */
 	public $parentType	= null;
 
-	public $templateDir	= '@cmsgears/widget-comment/views/simple';
+	public $templateDir	= '@cmsgears/widget-comment/views';
 
 	// Private Variables --------------------
 

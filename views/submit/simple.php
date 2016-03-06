@@ -36,7 +36,7 @@
     <input type='hidden' name='ModelComment[type]' value='<?= $type ?>'>
     <input type='hidden' name='ModelComment[parentId]' value='<?= $parentId ?>'>
     <input type='hidden' name='ModelComment[parentType]' value='<?= $parentType ?>'>
-    <input type='submit' class='element-medium right'>SUBMIT</a>  
+    <input type='submit' class='element-medium right' value="Submit">  
     <div class='filler-height filler-height-medium'> </div>
     <div class='message font-size font-size-tiny'></div>
 </form>
