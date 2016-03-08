@@ -15,7 +15,7 @@ $commentDate	= date('d', $date).' '.date('M', $date).', '.date('Y', $date);
 	<div class="col12x10">
 	   <div class="review clearfix">
             <div class="box-rating rating-secondary">
-                <?= yii::$app->formDesigner->getApixRatingList( $rating, 5 ); ?>
+                <?= yii::$app->formDesigner->getRatingStars( $rating, 5 ); ?>
             </div>
 			<p class="font-size font-size-large-7"><?=$comment->content?></p>
 			<div class="filler-height filler-height-default"> </div>

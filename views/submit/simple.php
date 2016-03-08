@@ -26,9 +26,9 @@
     <?php if( $rating ) { ?>
 	    <div class='clear'>
 	        <div class='box-rating rating-secondary clearfix'>
-	            <?= Yii::$app->formDesigner->getApixRatingList( null, 5, true );?>
+	            <?= Yii::$app->formDesigner->getRatingStars( null, 5, true );?>
 	        </div>
-	        <input type='hidden'name='ModelComment[rating]' id='rating-count'>
+	        <input type='hidden' name='ModelComment[rating]' id='rating-count'>
 	        <span class='error' cmt-error='rating'></span> 
 	    </div>
 	<?php } ?>
