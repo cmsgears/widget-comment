@@ -109,7 +109,7 @@ class ViewComments extends \cmsgears\core\common\base\Widget {
 
 			foreach( $comments as $comment ) {
  
-				$commentsHtml[] 	= $this->render( $commentPath, [ 'comment' => $comment ] );
+				$commentsHtml[] = $this->render( $commentPath, [ 'comment' => $comment ] );
 			}
 		}
 
