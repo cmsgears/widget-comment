@@ -22,7 +22,14 @@ class SubmitComment extends \cmsgears\core\common\base\Widget {
 	/**
 	 * Ajax url accepting comments
 	 */
-	public $url  		= null;
+	public $url             = null;
+    public $name            = null;
+    public $email           = null;
+    public $title           = null;
+    public $popup           = false;
+    public $successMessage  = null;
+    public $controller      = null;
+    public $action          = null;
 
 	/**
 	 * Comment type among comment, review or testimonial.
@@ -78,12 +85,24 @@ class SubmitComment extends \cmsgears\core\common\base\Widget {
 	public function renderWidget( $config = [] ) {
 
 		$formHtml		= [];
-
-		$viewPath		= $this->template . '/simple'; 
+        
+        if( $this->popup ) {
+            
+            $viewPath       = $this->template . '/popup';
+        }
+        else {
+            
+            $viewPath       = $this->template . '/simple';
+        }
 
 		$commentsHtml[]	= $this->render( $viewPath, [ 
 								'url' => $this->url, 'type' => $this->type, 'rating' => $this->rating,
-								'parentId' => $this->parentId, 'parentSlug' => $this->parentSlug, 'parentType' => $this->parentType
+								'parentId' => $this->parentId, 'parentSlug' => $this->parentSlug, 'parentType' => $this->parentType,
+								'title' => $this->title, 'successMessage' => $this->successMessage,
+								'email' => $this->email,
+								'name' => $this->name,
+								'controller' => $this->controller,
+								'action' => $this->action
 							]);
 
 		$commentsHtml	= implode( '', $commentsHtml );
