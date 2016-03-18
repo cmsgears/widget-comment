@@ -14,8 +14,8 @@
                         <span class='error' cmt-error='content'></span>
                     </div>
                     <?php if( isset( $user ) ) { ?>
-                        <input type="hidden" name="ModelComment[name]" value="<?= $name ?>">
-                        <input type="hidden" name="ModelComment[email]" value="<?= $email ?>">
+                        <input type="hidden" name="ModelComment[name]" value="<?= $user->name ?>">
+                        <input type="hidden" name="ModelComment[email]" value="<?= $user->email ?>">
                         <input type="hidden" name="ModelComment[rating]" value="<?=$rating?>">
                         <input type="hidden" name="ModelComment[parentId]" value="<?= $parentId ?>">
                         <input type="hidden" name="ModelComment[parentType]" value="<?= $parentType ?>">
