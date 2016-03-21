@@ -17,8 +17,9 @@ class SubmitComment extends \cmsgears\core\common\base\Widget {
 
 	// Variables ---------------------------------------------------
 
-	// Public Variables -------------------- 
+	// Public Variables --------------------
 
+<<<<<<< HEAD
 	/**
 	 * Ajax url accepting comments
 	 */
@@ -27,11 +28,24 @@ class SubmitComment extends \cmsgears\core\common\base\Widget {
     public $successMessage  = null;
     public $controller      = null;
     public $action          = null;
+=======
+	public $ajax			= true;
+	public $ajaxUrl			= null;			// CMT App Request - Submit Path
+    public $controller      = 'comment'; 	// CMT App Request - Controller
+    public $action          = 'create'; 	// CMT App Request - Action
+
+    public $title           = null;	// Title for Submit Form
+    public $successMessage  = null;	// Message displayed after success. It can be used to override default message sent back by server.
+>>>>>>> Added few more widgets having pre-defined config.
 
 	/**
-	 * Comment type among comment, review or testimonial.
+	 * Check whether rating is required.
 	 */
+<<<<<<< HEAD
 	public $type 		= ModelComment::TYPE_COMMENT;
+=======
+    public $rating      = false;
+>>>>>>> Added few more widgets having pre-defined config.
 
 	/**
 	 * Parent Id used to submit comment
@@ -50,15 +64,25 @@ class SubmitComment extends \cmsgears\core\common\base\Widget {
 	 */
     public $parentType  = null;
 
+<<<<<<< HEAD
     public $templateDir = '@cmsgears/widget-comment/views/submit';
     
+=======
+	/**
+	 * Comment type among comment, review or testimonial.
+	 */
+	public $type 		= ModelComment::TYPE_COMMENT;
+
+    public $templateDir = '@cmsgears/widget-comment/views/submit';
+
+>>>>>>> Added few more widgets having pre-defined config.
     public $template    = 'simple';
 
 	// Private Variables --------------------
 
 	// Constructor and Initialisation ------------------------------
 
-	// yii\base\Object
+	// yii\base\Object ----------------------
 
     public function init() {
 
@@ -69,7 +93,7 @@ class SubmitComment extends \cmsgears\core\common\base\Widget {
 
 	// Instance Methods --------------------------------------------
 
-	// yii\base\Widget
+	// yii\base\Widget ----------------------
 
 	/**
 	 * @inheritdoc
@@ -79,16 +103,26 @@ class SubmitComment extends \cmsgears\core\common\base\Widget {
 		return $this->renderWidget();
     }
 
+	// SubmitComment ------------------------
+
 	public function renderWidget( $config = [] ) {
 
 		$formHtml		= [];
 
+<<<<<<< HEAD
 		$commentsHtml[]	= $this->render( $this->template, [ 
 								'url' => $this->url, 'type' => $this->type, 'rating' => $this->rating,
 								'parentId' => $this->parentId, 'parentSlug' => $this->parentSlug, 'parentType' => $this->parentType,
 								'title' => $this->title, 'successMessage' => $this->successMessage,
 								'controller' => $this->controller,
 								'action' => $this->action
+=======
+		$commentsHtml[]	= $this->render( $this->template, [
+								'ajax' => $this->ajax, 'ajaxUrl' => $this->ajaxUrl, 'controller' => $this->controller, 'action' => $this->action,
+								'title' => $this->title, 'successMessage' => $this->successMessage,
+								'rating' => $this->rating,
+								'parentId' => $this->parentId, 'parentSlug' => $this->parentSlug, 'parentType' => $this->parentType, 'type' => $this->type
+>>>>>>> Added few more widgets having pre-defined config.
 							]);
 
 		$commentsHtml	= implode( '', $commentsHtml );

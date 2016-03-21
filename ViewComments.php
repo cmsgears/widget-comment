@@ -4,13 +4,17 @@ namespace cmsgears\widgets\comment;
 // Yii Imports
 use \Yii;
 use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\widgets\LinkPager;
 
 // CMG Imports
-use cmsgears\listing\common\config\ListingGlobal;
+use cmsgears\core\common\config\CoreGlobal;
 
 use cmsgears\core\common\models\entities\ModelComment;
 
-use cmsgears\core\common\services\ModelCommentService;
+use cmsgears\core\frontend\services\ModelCommentService;
+
+use cmsgears\core\common\utilities\CodeGenUtil;
 
 /**
  * It shows the Comments for model type or a single model. It can also retrieve child comments using baseId of parent comment.
@@ -22,22 +26,6 @@ class ViewComments extends \cmsgears\core\common\base\Widget {
 	// Public Variables --------------------
 
 	/**
-	 * Ajax url to retrieve comments.
-	 */
-	public $url  		= null;
-
-	/**
-	 * Retrieve all comments via ajax if true, else get only child comments using ajax if set to false. The view should support 
-	 * ajax having appropriate triggers to accomplish ajax nature.
-	 */
-	public $ajax  		= false;
-
-	/**
-	 * Comment type among comment, review or testimonial.
-	 */
-	public $type		= ModelComment::TYPE_COMMENT;
-
-	/**
 	 * Parent Id used to access comments for single parent model.
 	 */
 	public $parentId	= null;
@@ -47,14 +35,23 @@ class ViewComments extends \cmsgears\core\common\base\Widget {
 	 */
 	public $parentType	= null;
 
-	public $templateDir	= '@cmsgears/widget-comment/views';
+	/**
+	 * Comment type among comment, review or testimonial.
+	 */
+	public $type		= ModelComment::TYPE_COMMENT;
+
+	// Pagination
+	public $pagination	= true;
+	public $paging		= true;	// If paging is false, scroll/action based paging can be used to show remaining pages
+	public $ajaxUrl		= null;
+	public $ajaxPaging	= true;
+	public $limit		= 5;
+	public $pageInfo	= null;
+	public $pageLinks	= null;
 
 	// Private Variables --------------------
 
-	/**
-	 * Used in case comments need to be retrieved without using ajax for initial request.
-	 */
-	private $comments	= null;
+	protected $models	= [];
 
 	// Constructor and Initialisation ------------------------------
 
@@ -64,41 +61,62 @@ class ViewComments extends \cmsgears\core\common\base\Widget {
 
         parent::init();
 
-		// Do init tasks
+		// Pagination
+		if( $this->pagination ) {
+
+			$dataProvider	= null;
+
+			// Init models
+			if( $this->parentId == null ) {
+
+				$dataProvider	= ModelCommentService::getPaginationByParentType( $this->parentType, $this->type );
+				$this->models	= $dataProvider->getModels();
+			}
+			else {
+
+				$dataProvider	= ModelCommentService::getPaginationByParent( $this->parentId, $this->parentType, $this->type );
+				$this->models	= $dataProvider->getModels();
+			}
+
+			// Init Paging
+			if( $this->paging ) {
+
+				$pagination			= $dataProvider->getPagination();
+				$this->pageInfo		= CodeGenUtil::getPaginationDetail( $dataProvider );
+				$this->pageLinks	= LinkPager::widget( [ 'pagination' => $pagination ] );
+			}
+		}
+		// Use non pagination methods to retrieve all at once
+		else {
+
+			if( $this->parentId == null ) {
+
+				$this->models	= ModelCommentService::getByParentType( $this->parentType, $this->type );
+			}
+			else {
+
+				$this->models	= ModelCommentService::getByParent( $this->parentId, $this->parentType, $this->type );
+			}
+		}
     }
 
 	// Instance Methods --------------------------------------------
 
-	// yii\base\Widget
+	// yii\base\Widget ----------------------
 
 	/**
 	 * @inheritdoc
 	 */
     public function run() {
 
-		$this->getComments();
-
 		return $this->renderWidget();
     }
 
-	protected function getComments() {
-
-		if( !$this->ajax ) {
-
-			if( $this->parentId == null ) {
-
-				$this->comments	= ModelCommentService::findApprovedByParentType( $this->parentType, $this->type );
-			}
-			else {
-
-				$this->comments	= ModelCommentService::findApprovedByParent( $this->parentId, $this->parentType, $this->type );
-			}
-		}
-	}
+	// ViewComments -------------------------
 
 	public function renderWidget( $config = [] ) {
 
-		$comments		= $this->comments;
+		$comments		= $this->models;
 		$commentsHtml	= [];
 
 		// Path
