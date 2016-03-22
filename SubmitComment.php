@@ -19,16 +19,6 @@ class SubmitComment extends \cmsgears\core\common\base\Widget {
 
 	// Public Variables --------------------
 
-<<<<<<< HEAD
-	/**
-	 * Ajax url accepting comments
-	 */
-	public $url             = null;
-    public $title           = null;
-    public $successMessage  = null;
-    public $controller      = null;
-    public $action          = null;
-=======
 	public $ajax			= true;
 	public $ajaxUrl			= null;			// CMT App Request - Submit Path
     public $controller      = 'comment'; 	// CMT App Request - Controller
@@ -36,23 +26,16 @@ class SubmitComment extends \cmsgears\core\common\base\Widget {
 
     public $title           = null;	// Title for Submit Form
     public $successMessage  = null;	// Message displayed after success. It can be used to override default message sent back by server.
->>>>>>> Added few more widgets having pre-defined config.
 
 	/**
 	 * Check whether rating is required.
 	 */
-<<<<<<< HEAD
-	public $type 		= ModelComment::TYPE_COMMENT;
-=======
     public $rating      = false;
->>>>>>> Added few more widgets having pre-defined config.
 
 	/**
 	 * Parent Id used to submit comment
 	 */
     public $parentId	= null;
-    
-    public $rating      = null;
 
 	/**
 	 * Parent Slug used to find parent in case parent id is not available
@@ -64,10 +47,6 @@ class SubmitComment extends \cmsgears\core\common\base\Widget {
 	 */
     public $parentType  = null;
 
-<<<<<<< HEAD
-    public $templateDir = '@cmsgears/widget-comment/views/submit';
-    
-=======
 	/**
 	 * Comment type among comment, review or testimonial.
 	 */
@@ -75,7 +54,6 @@ class SubmitComment extends \cmsgears\core\common\base\Widget {
 
     public $templateDir = '@cmsgears/widget-comment/views/submit';
 
->>>>>>> Added few more widgets having pre-defined config.
     public $template    = 'simple';
 
 	// Private Variables --------------------
@@ -109,20 +87,11 @@ class SubmitComment extends \cmsgears\core\common\base\Widget {
 
 		$formHtml		= [];
 
-<<<<<<< HEAD
-		$commentsHtml[]	= $this->render( $this->template, [ 
-								'url' => $this->url, 'type' => $this->type, 'rating' => $this->rating,
-								'parentId' => $this->parentId, 'parentSlug' => $this->parentSlug, 'parentType' => $this->parentType,
-								'title' => $this->title, 'successMessage' => $this->successMessage,
-								'controller' => $this->controller,
-								'action' => $this->action
-=======
 		$commentsHtml[]	= $this->render( $this->template, [
 								'ajax' => $this->ajax, 'ajaxUrl' => $this->ajaxUrl, 'controller' => $this->controller, 'action' => $this->action,
 								'title' => $this->title, 'successMessage' => $this->successMessage,
 								'rating' => $this->rating,
 								'parentId' => $this->parentId, 'parentSlug' => $this->parentSlug, 'parentType' => $this->parentType, 'type' => $this->type
->>>>>>> Added few more widgets having pre-defined config.
 							]);
 
 		$commentsHtml	= implode( '', $commentsHtml );
