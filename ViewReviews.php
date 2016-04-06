@@ -7,7 +7,7 @@ use \Yii;
 // CMG Imports
 use cmsgears\core\common\config\CoreGlobal;
 
-use cmsgears\core\common\models\entities\ModelComment;
+use cmsgears\core\common\models\mappers\ModelComment;
 
 /**
  * It shows the Reviews for model type or a single model.

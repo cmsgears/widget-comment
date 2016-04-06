@@ -6,9 +6,9 @@ use \Yii;
 use yii\helpers\Html;
 
 // CMG Imports
-use cmsgears\core\common\models\entities\ModelComment;
+use cmsgears\core\common\models\mappers\ModelComment;
 
-use cmsgears\core\common\services\ModelCommentService;
+use cmsgears\core\common\services\mappers\ModelCommentService;
 
 /**
  * It allows users to submit comments for specific model using comment trait.

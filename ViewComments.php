@@ -10,9 +10,9 @@ use yii\widgets\LinkPager;
 // CMG Imports
 use cmsgears\core\common\config\CoreGlobal;
 
-use cmsgears\core\common\models\entities\ModelComment;
+use cmsgears\core\common\models\mappers\ModelComment;
 
-use cmsgears\core\frontend\services\ModelCommentService;
+use cmsgears\core\frontend\services\mappers\ModelCommentService;
 
 use cmsgears\core\common\utilities\CodeGenUtil;
 
@@ -126,7 +126,7 @@ class ViewComments extends \cmsgears\core\common\base\Widget {
 		if( isset( $comments ) && count( $comments ) > 0 ) {
 
 			foreach( $comments as $comment ) {
- 
+
 				$commentsHtml[] = $this->render( $commentPath, [ 'comment' => $comment ] );
 			}
 		}

@@ -6,7 +6,7 @@ use \Yii;
 use yii\helpers\Html;
 
 // CMG Imports
-use cmsgears\core\common\models\entities\ModelComment;
+use cmsgears\core\common\models\mappers\ModelComment;
 
 /**
  * It allows users to submit reviews for specific model using comment trait.
