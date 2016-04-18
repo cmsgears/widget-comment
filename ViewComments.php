@@ -19,7 +19,7 @@ use cmsgears\core\common\utilities\CodeGenUtil;
 /**
  * It shows the Comments for model type or a single model. It can also retrieve child comments using baseId of parent comment.
  */
-class ViewComments extends \cmsgears\core\common\base\Widget {
+class ViewComments extends \cmsgears\core\common\base\PageWidget {
 
 	// Variables ---------------------------------------------------
 
@@ -40,50 +40,23 @@ class ViewComments extends \cmsgears\core\common\base\Widget {
 	 */
 	public $type		= ModelComment::TYPE_COMMENT;
 
-	// Pagination
-	public $pagination	= true;
-	public $paging		= true;	// If paging is false, scroll/action based paging can be used to show remaining pages
-	public $ajaxUrl		= null;
-	public $ajaxPaging	= true;
-	public $limit		= 5;
-	public $pageInfo	= null;
-	public $pageLinks	= null;
-
-	// Private Variables --------------------
-
-	protected $models	= [];
-
 	// Constructor and Initialisation ------------------------------
 
-	// yii\base\Object
-
-    public function init() {
-
-        parent::init();
+	public function initModels( $config = [] ) {
 
 		// Pagination
 		if( $this->pagination ) {
 
-			$dataProvider	= null;
-
 			// Init models
 			if( $this->parentId == null ) {
 
-				$dataProvider	= ModelCommentService::getPaginationByParentType( $this->parentType, $this->type );
-				$this->models	= $dataProvider->getModels();
+				$this->dataProvider		= ModelCommentService::getPaginationByParentType( $this->parentType, [ 'type' => $this->type, 'limit' => $this->limit ] );
+				$this->modelPage		= $this->dataProvider->getModels();
 			}
 			else {
 
-				$dataProvider	= ModelCommentService::getPaginationByParent( $this->parentId, $this->parentType, $this->type );
-				$this->models	= $dataProvider->getModels();
-			}
-
-			// Init Paging
-			if( $this->paging ) {
-
-				$pagination			= $dataProvider->getPagination();
-				$this->pageInfo		= CodeGenUtil::getPaginationDetail( $dataProvider );
-				$this->pageLinks	= LinkPager::widget( [ 'pagination' => $pagination ] );
+				$this->dataProvider		= ModelCommentService::getPaginationByParent( $this->parentId, $this->parentType, [ 'type' => $this->type, 'limit' => $this->limit ] );
+				$this->modelPage		= $this->dataProvider->getModels();
 			}
 		}
 		// Use non pagination methods to retrieve all at once
@@ -91,52 +64,18 @@ class ViewComments extends \cmsgears\core\common\base\Widget {
 
 			if( $this->parentId == null ) {
 
-				$this->models	= ModelCommentService::getByParentType( $this->parentType, $this->type );
+				$this->modelPage	= ModelCommentService::getByParentType( $this->parentType, $this->type );
 			}
 			else {
 
-				$this->models	= ModelCommentService::getByParent( $this->parentId, $this->parentType, $this->type );
+				$this->modelPage	= ModelCommentService::getByParent( $this->parentId, $this->parentType, $this->type );
 			}
 		}
-    }
+	}
 
 	// Instance Methods --------------------------------------------
 
-	// yii\base\Widget ----------------------
-
-	/**
-	 * @inheritdoc
-	 */
-    public function run() {
-
-		return $this->renderWidget();
-    }
-
 	// ViewComments -------------------------
-
-	public function renderWidget( $config = [] ) {
-
-		$comments		= $this->models;
-		$commentsHtml	= [];
-
-		// Path
-		$commentPath	= $this->template . '/comment';
-		$wrapperPath	= $this->template . '/wrapper';
-
-		if( isset( $comments ) && count( $comments ) > 0 ) {
-
-			foreach( $comments as $comment ) {
-
-				$commentsHtml[] = $this->render( $commentPath, [ 'comment' => $comment ] );
-			}
-		}
-
-		$commentsHtml	= implode( '', $commentsHtml );
-
-		$commentsHtml 	= $this->render( $wrapperPath, [ 'commentsHtml' => $commentsHtml ] );
-
-		return Html::tag( 'ul', $commentsHtml, $this->options );
-	}
 }
 
 ?>

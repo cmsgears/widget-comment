@@ -23,6 +23,7 @@ class SubmitComment extends \cmsgears\core\common\base\Widget {
 	public $ajaxUrl			= null;			// CMT App Request - Submit Path
     public $controller      = 'comment'; 	// CMT App Request - Controller
     public $action          = 'create'; 	// CMT App Request - Action
+    public $captcha			= true;
 
     public $title           = null;	// Title for Submit Form
     public $successMessage  = null;	// Message displayed after success. It can be used to override default message sent back by server.
@@ -87,12 +88,7 @@ class SubmitComment extends \cmsgears\core\common\base\Widget {
 
 		$formHtml		= [];
 
-		$commentsHtml[]	= $this->render( $this->template, [
-								'ajax' => $this->ajax, 'ajaxUrl' => $this->ajaxUrl, 'controller' => $this->controller, 'action' => $this->action,
-								'title' => $this->title, 'successMessage' => $this->successMessage,
-								'rating' => $this->rating,
-								'parentId' => $this->parentId, 'parentSlug' => $this->parentSlug, 'parentType' => $this->parentType, 'type' => $this->type
-							]);
+		$commentsHtml[]	= $this->render( $this->template, [ 'widget' => $this ] );
 
 		$commentsHtml	= implode( '', $commentsHtml );
 
