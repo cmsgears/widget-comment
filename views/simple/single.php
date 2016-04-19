@@ -1,4 +1,7 @@
 <?php
+// Yii Imports
+use \Yii;
+use yii\helpers\Html;
 
 // CMG Imports
 use cmsgears\core\common\utilities\DateUtil;
@@ -6,7 +9,7 @@ use cmsgears\core\common\utilities\DateUtil;
 $rating			= $model->rating;
 $commentDate	= DateUtil::getDateFromDateTime( $model->createdAt );
 ?>
-<div class="clearfix">
+<div <?= Html::renderTagAttributes( $widget->modelOptions ) ?>>
 	<div class="col12x2">
 		<img class="fluid circled1 " src="<?= Yii::getAlias( "@images" ) ?>/user-icon-2.png">
 		<p class="text bold italic font-size font-size-small align align-center"> <?= ucfirst( $model->name ) ?> </p>
