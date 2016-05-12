@@ -12,7 +12,7 @@ use cmsgears\core\common\config\CoreGlobal;
 
 use cmsgears\core\common\models\mappers\ModelComment;
 
-use cmsgears\core\frontend\services\mappers\ModelCommentService;
+use cmsgears\core\common\services\mappers\ModelCommentService;
 
 use cmsgears\core\common\utilities\CodeGenUtil;
 
