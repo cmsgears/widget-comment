@@ -15,7 +15,17 @@ class SubmitReview extends SubmitComment {
 
 	// Variables ---------------------------------------------------
 
-	// Public Variables --------------------
+	// Globals -------------------------------
+
+	// Constants --------------
+
+	// Public -----------------
+
+	// Protected --------------
+
+	// Variables -----------------------------
+
+	// Public -----------------
 
     public $controller      = 'review';
 
@@ -23,13 +33,26 @@ class SubmitReview extends SubmitComment {
 
 	public $type 			= ModelComment::TYPE_REVIEW;
 
-	// Private Variables --------------------
+	// Protected --------------
+
+	// Private ----------------
+
+	// Traits ------------------------------------------------------
 
 	// Constructor and Initialisation ------------------------------
 
-	// Instance Methods --------------------------------------------
+	// Instance methods --------------------------------------------
 
-	// SubmitReview -------------------------
+	// Yii interfaces ------------------------
+
+	// Yii parent classes --------------------
+
+	// yii\base\Widget --------
+
+	// CMG interfaces ------------------------
+
+	// CMG parent classes --------------------
+
+	// SubmitReview --------------------------
+
 }
-
-?>

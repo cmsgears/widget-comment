@@ -6,9 +6,9 @@ use \Yii;
 use yii\helpers\Html;
 
 // CMG Imports
-use cmsgears\core\common\models\mappers\ModelComment;
+use cmsgears\core\common\config\CoreGlobal;
 
-use cmsgears\core\common\services\mappers\ModelCommentService;
+use cmsgears\core\common\models\resources\ModelComment;
 
 /**
  * It allows users to submit comments for specific model using comment trait.
@@ -17,12 +17,26 @@ class SubmitComment extends \cmsgears\core\common\base\Widget {
 
 	// Variables ---------------------------------------------------
 
-	// Public Variables --------------------
+	// Globals -------------------------------
+
+	// Constants --------------
+
+	// Public -----------------
+
+	// Protected --------------
+
+	// Variables -----------------------------
+
+	// Public -----------------
+
+	public $model			= null; // Model for which comment need to be submitted
 
 	public $ajax			= true;
-	public $ajaxUrl			= null;			// CMT App Request - Submit Path
-    public $controller      = 'comment'; 	// CMT App Request - Controller
-    public $action          = 'create'; 	// CMT App Request - Action
+	public $ajaxUrl			= null; // CMT App Request - Submit Path
+
+    public $controller      = 'comment'; // CMT App Request - Controller
+    public $action          = 'create'; // CMT App Request - Action
+
     public $captcha			= true;
 
     public $title           = null;	// Title for Submit Form
@@ -33,56 +47,29 @@ class SubmitComment extends \cmsgears\core\common\base\Widget {
 	 */
     public $rating      = false;
 
-	/**
-	 * Parent Id used to submit comment
-	 */
-    public $parentId	= null;
-
-	/**
-	 * Parent Slug used to find parent in case parent id is not available
-	 */
-    public $parentSlug	= null;
-
-	/**
-	 * Parent type
-	 */
-    public $parentType  = null;
-
-	/**
-	 * Comment type among comment, review or testimonial.
-	 */
-	public $type 		= ModelComment::TYPE_COMMENT;
-
     public $templateDir = '@cmsgears/widget-comment/views/submit';
 
     public $template    = 'simple';
 
-	// Private Variables --------------------
+	// Protected --------------
+
+	// Private ----------------
+
+	// Traits ------------------------------------------------------
 
 	// Constructor and Initialisation ------------------------------
 
-	// yii\base\Object ----------------------
+	// Instance methods --------------------------------------------
 
-    public function init() {
+	// Yii interfaces ------------------------
 
-        parent::init();
+	// Yii parent classes --------------------
 
-		// Do init tasks
-    }
+	// yii\base\Widget --------
 
-	// Instance Methods --------------------------------------------
+	// CMG interfaces ------------------------
 
-	// yii\base\Widget ----------------------
-
-	/**
-	 * @inheritdoc
-	 */
-    public function run() {
-
-		return $this->renderWidget();
-    }
-
-	// SubmitComment ------------------------
+	// CMG parent classes --------------------
 
 	public function renderWidget( $config = [] ) {
 
@@ -94,6 +81,6 @@ class SubmitComment extends \cmsgears\core\common\base\Widget {
 
 		return Html::tag( 'div', $commentsHtml, $this->options );
 	}
-}
 
-?>
+	// SubmitComment -------------------------
+}

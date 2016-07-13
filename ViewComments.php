@@ -10,9 +10,7 @@ use yii\widgets\LinkPager;
 // CMG Imports
 use cmsgears\core\common\config\CoreGlobal;
 
-use cmsgears\core\common\models\mappers\ModelComment;
-
-use cmsgears\core\common\services\mappers\ModelCommentService;
+use cmsgears\core\common\models\resources\ModelComment;
 
 use cmsgears\core\common\utilities\CodeGenUtil;
 
@@ -44,18 +42,20 @@ class ViewComments extends \cmsgears\core\common\base\PageWidget {
 
 	public function initModels( $config = [] ) {
 
+		$modelCommentService	= Yii::$app->factory->get( 'modelCommentService' );
+
 		// Pagination
 		if( $this->pagination ) {
 
 			// Init models
 			if( $this->parentId == null ) {
 
-				$this->dataProvider		= ModelCommentService::getPaginationByParentType( $this->parentType, [ 'type' => $this->type, 'limit' => $this->limit ] );
+				$this->dataProvider		= $modelCommentService->getPageByParentType( $this->parentType, [ 'type' => $this->type, 'limit' => $this->limit ] );
 				$this->modelPage		= $this->dataProvider->getModels();
 			}
 			else {
 
-				$this->dataProvider		= ModelCommentService::getPaginationByParent( $this->parentId, $this->parentType, [ 'type' => $this->type, 'limit' => $this->limit ] );
+				$this->dataProvider		= $modelCommentService->getPageByParent( $this->parentId, $this->parentType, [ 'type' => $this->type, 'limit' => $this->limit ] );
 				$this->modelPage		= $this->dataProvider->getModels();
 			}
 		}
@@ -64,11 +64,11 @@ class ViewComments extends \cmsgears\core\common\base\PageWidget {
 
 			if( $this->parentId == null ) {
 
-				$this->modelPage	= ModelCommentService::getByParentType( $this->parentType, $this->type );
+				$this->modelPage	= $modelCommentService->getByParentType( $this->parentType, $this->type );
 			}
 			else {
 
-				$this->modelPage	= ModelCommentService::getByParent( $this->parentId, $this->parentType, $this->type );
+				$this->modelPage	= $modelCommentService->getByParent( $this->parentId, $this->parentType, $this->type );
 			}
 		}
 	}
