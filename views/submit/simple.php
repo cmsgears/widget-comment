@@ -1,7 +1,7 @@
 <?php
 $model				= $widget->model;
 $ajax				= $widget->ajax;
-$ajaxUrl			= $widget->ajaxUrl . "?slug=$model->slug";
+$ajaxUrl			= $widget->ajaxUrl;
 $controller      	= $widget->controller;
 $action          	= $widget->action;
 $captcha			= $widget->captcha;
@@ -46,6 +46,7 @@ $user				= Yii::$app->user->getIdentity();
                 <textarea name='ModelComment[content]' placeholder='Write here...'></textarea>
             </div>
         </div>
+        <span class='error' cmt-error='content'></span>
     </div>
 
     <?php if( $widget->rating ) { ?>
