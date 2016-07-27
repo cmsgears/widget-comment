@@ -10,6 +10,7 @@ use yii\widgets\LinkPager;
 // CMG Imports
 use cmsgears\core\common\config\CoreGlobal;
 
+use cmsgears\core\common\models\base\CoreTables;
 use cmsgears\core\common\models\resources\ModelComment;
 
 use cmsgears\core\common\utilities\CodeGenUtil;
@@ -38,6 +39,8 @@ class ViewComments extends \cmsgears\core\common\base\PageWidget {
 	 */
 	public $type		= ModelComment::TYPE_COMMENT;
 
+	public $status		= ModelComment::STATUS_APPROVED;
+
 	// Constructor and Initialisation ------------------------------
 
 	public function initModels( $config = [] ) {
@@ -47,15 +50,23 @@ class ViewComments extends \cmsgears\core\common\base\PageWidget {
 		// Pagination
 		if( $this->pagination ) {
 
+			$commentTable			= CoreTables::TABLE_MODEL_COMMENT;
+			$conditions[ 'type' ]	= $this->type;
+
+			if( isset( $this->status ) ) {
+
+				$conditions[ "$commentTable.status" ]	= $this->status;
+			}
+
 			// Init models
 			if( $this->parentId == null ) {
 
-				$this->dataProvider		= $modelCommentService->getPageByParentType( $this->parentType, [ 'type' => $this->type, 'limit' => $this->limit ] );
+				$this->dataProvider		= $modelCommentService->getPageByParentType( $this->parentType, [ 'conditions' => $conditions, 'limit' => $this->limit ] );
 				$this->modelPage		= $this->dataProvider->getModels();
 			}
 			else {
 
-				$this->dataProvider		= $modelCommentService->getPageByParent( $this->parentId, $this->parentType, [ 'type' => $this->type, 'limit' => $this->limit ] );
+				$this->dataProvider		= $modelCommentService->getPageByParent( $this->parentId, $this->parentType, [ 'conditions' => $conditions, 'limit' => $this->limit ] );
 				$this->modelPage		= $this->dataProvider->getModels();
 			}
 		}
@@ -77,5 +88,3 @@ class ViewComments extends \cmsgears\core\common\base\PageWidget {
 
 	// ViewComments -------------------------
 }
-
-?>

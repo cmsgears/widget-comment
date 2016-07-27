@@ -1,4 +1,7 @@
 <?php
+// Yii Imports
+use yii\captcha\Captcha;
+
 $model				= $widget->model;
 $ajax				= $widget->ajax;
 $ajaxUrl			= $widget->ajaxUrl;
@@ -58,7 +61,20 @@ $user				= Yii::$app->user->getIdentity();
 	        <span class='error' cmt-error='rating'></span>
 	    </div>
 	<?php } ?>
+
+	<div class='filler-height filler-height-medium'> </div>
+
+	<?php if( !isset( $user ) ) { ?>
+		<div class='clear wrap-captcha'>
+			<?= Captcha::widget( [ 'name' => 'ModelComment[captcha]', 'captchaAction' =>  '/core/site/captcha', 'options' => [ 'placeholder' => 'Captcha Key*' ] ] ) ?>
+			<div class="warning">Click on the captcha image to get new code.</div>
+			<div class="error" cmt-error="captcha"></div>
+		</div>
+	<?php } ?>
+
     <input type='submit' class='element-medium right' value="Submit">
+
     <div class='filler-height filler-height-medium'> </div>
+
     <div class='message font-size font-size-tiny'></div>
 </form>
