@@ -1,5 +1,5 @@
 <?php
-namespace cmsgears\widgets\comment;
+namespace cmsgears\widgets\comment\submit;
 
 // Yii Imports
 use \Yii;
@@ -37,19 +37,15 @@ class SubmitComment extends \cmsgears\core\common\base\Widget {
     public $controller      = 'comment'; // CMT App Request - Controller
     public $action          = 'create'; // CMT App Request - Action
 
-    public $captcha			= true;
+    public $captcha			= true; // Used to show captcha based on configuration instead of user availability.
 
-    public $title           = null;	// Title for Submit Form
+    public $title           = null;	// Title for Submit Form.
     public $successMessage  = null;	// Message displayed after success. It can be used to override default message sent back by server.
 
 	/**
 	 * Check whether rating is required.
 	 */
-    public $rating      = false;
-
-    public $templateDir = '@cmsgears/widget-comment/views/submit';
-
-    public $template    = 'simple';
+    public $rating      	= false;
 
 	// Protected --------------
 
@@ -73,13 +69,9 @@ class SubmitComment extends \cmsgears\core\common\base\Widget {
 
 	public function renderWidget( $config = [] ) {
 
-		$formHtml		= [];
+		$formHtml = $this->render( $this->template, [ 'widget' => $this ] );
 
-		$commentsHtml[]	= $this->render( $this->template, [ 'widget' => $this ] );
-
-		$commentsHtml	= implode( '', $commentsHtml );
-
-		return Html::tag( 'div', $commentsHtml, $this->options );
+		return Html::tag( 'div', $formHtml, $this->options );
 	}
 
 	// SubmitComment -------------------------

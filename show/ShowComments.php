@@ -1,5 +1,5 @@
 <?php
-namespace cmsgears\widgets\comment;
+namespace cmsgears\widgets\comment\show;
 
 // Yii Imports
 use \Yii;
@@ -18,11 +18,21 @@ use cmsgears\core\common\utilities\CodeGenUtil;
 /**
  * It shows the Comments for model type or a single model. It can also retrieve child comments using baseId of parent comment.
  */
-class ViewComments extends \cmsgears\core\common\base\PageWidget {
+class ShowComments extends \cmsgears\core\common\base\PageWidget {
 
 	// Variables ---------------------------------------------------
 
-	// Public Variables --------------------
+	// Globals -------------------------------
+
+	// Constants --------------
+
+	// Public -----------------
+
+	// Protected --------------
+
+	// Variables -----------------------------
+
+	// Public -----------------
 
 	/**
 	 * Parent Id used to access comments for single parent model.
@@ -40,6 +50,12 @@ class ViewComments extends \cmsgears\core\common\base\PageWidget {
 	public $type		= ModelComment::TYPE_COMMENT;
 
 	public $status		= ModelComment::STATUS_APPROVED;
+
+	// Protected --------------
+
+	// Private ----------------
+
+	// Traits ------------------------------------------------------
 
 	// Constructor and Initialisation ------------------------------
 
@@ -84,7 +100,18 @@ class ViewComments extends \cmsgears\core\common\base\PageWidget {
 		}
 	}
 
-	// Instance Methods --------------------------------------------
+	// Instance methods --------------------------------------------
 
-	// ViewComments -------------------------
+	// Yii interfaces ------------------------
+
+	// Yii parent classes --------------------
+
+	// yii\base\Widget --------
+
+	// CMG interfaces ------------------------
+
+	// CMG parent classes --------------------
+
+	// ShowComments --------------------------
+
 }

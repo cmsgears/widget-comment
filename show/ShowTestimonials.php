@@ -1,17 +1,18 @@
 <?php
-namespace cmsgears\widgets\comment;
+namespace cmsgears\widgets\comment\show;
 
 // Yii Imports
 use \Yii;
-use yii\helpers\Html;
 
 // CMG Imports
+use cmsgears\core\common\config\CoreGlobal;
+
 use cmsgears\core\common\models\resources\ModelComment;
 
 /**
- * It allows users to submit reviews for specific model using comment trait.
+ * It shows the Testimonials for model type or a single model.
  */
-class SubmitReview extends SubmitComment {
+class ShowTestimonials extends ViewComments {
 
 	// Variables ---------------------------------------------------
 
@@ -27,11 +28,7 @@ class SubmitReview extends SubmitComment {
 
 	// Public -----------------
 
-    public $controller      = 'review';
-
-    public $rating      	= true;
-
-	public $type 			= ModelComment::TYPE_REVIEW;
+	public $type 	= ModelComment::TYPE_TESTIMONIAL;
 
 	// Protected --------------
 
@@ -53,6 +50,6 @@ class SubmitReview extends SubmitComment {
 
 	// CMG parent classes --------------------
 
-	// SubmitReview --------------------------
+	// ShowTestimonials ----------------------
 
 }
