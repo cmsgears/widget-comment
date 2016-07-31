@@ -12,7 +12,7 @@ use cmsgears\core\common\models\resources\ModelComment;
 /**
  * It shows the Testimonials for model type or a single model.
  */
-class ShowTestimonials extends ViewComments {
+class ShowTestimonials extends ShowComments {
 
 	// Variables ---------------------------------------------------
 

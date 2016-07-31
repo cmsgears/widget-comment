@@ -12,7 +12,7 @@ use cmsgears\core\common\models\resources\ModelComment;
 /**
  * It shows the Feedbacks for model type or a single model.
  */
-class ShowFeedbacks extends ViewComments {
+class ShowFeedbacks extends ShowComments {
 
 	// Variables ---------------------------------------------------
 
