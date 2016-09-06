@@ -38,7 +38,20 @@ $user				= Yii::$app->user->getIdentity();
 	    </div>
 	<?php } else { ?>
 	    <div class='col12x6'>
-	    	<!-- Show user info -->
+	        <div class='frm-icon-element'>
+	            <i class='icon fa fa-user valign-center'></i>
+	            <div class='clear-none'>
+	                <input type='text' name='ModelComment[name]' placeholder='Name' value="<?=$user->username?>">
+	            </div>
+	        </div>
+	        <span class='error' cmt-error='name'></span>
+	        <div class='frm-icon-element'>
+	            <i class='icon fa fa-at valign-center'></i>
+	            <div class='clear-none'>
+	                <input type='text' name='ModelComment[email]' placeholder='Email' value="<?=$user->email?>">
+	            </div>
+	        </div>
+	        <span class='error' cmt-error='email'></span>
 	    </div>
     <?php } ?>
 
