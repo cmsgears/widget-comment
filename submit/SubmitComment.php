@@ -42,6 +42,11 @@ class SubmitComment extends \cmsgears\core\common\base\Widget {
     public $title           = null;	// Title for Submit Form.
     public $successMessage  = null;	// Message displayed after success. It can be used to override default message sent back by server.
 
+    /**
+	 * Comment type among comment, review or testimonial.
+	 */
+	public $type			= ModelComment::TYPE_COMMENT;
+
 	/**
 	 * Check whether rating is required.
 	 */

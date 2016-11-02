@@ -11,6 +11,7 @@ $captcha			= $widget->captcha;
 $title           	= $widget->title;
 $successMessage  	= $widget->successMessage;
 $rating      		= $widget->rating;
+$type				= $widget->type;
 
 $user				= Yii::$app->user->getIdentity();
 ?>
@@ -85,6 +86,7 @@ $user				= Yii::$app->user->getIdentity();
 		</div>
 	<?php } ?>
 
+	<input type='hidden' name='ModelComment[type]' value="<?=$type?>">
     <input type='submit' class='element-medium right' value="Submit">
 
     <div class='filler-height filler-height-medium'> </div>
