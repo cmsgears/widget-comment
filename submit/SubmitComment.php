@@ -7,6 +7,7 @@ use yii\helpers\Html;
 
 // CMG Imports
 use cmsgears\core\common\config\CoreGlobal;
+use cmsgears\core\frontend\config\SiteProperties;
 
 use cmsgears\core\common\models\resources\ModelComment;
 
@@ -74,10 +75,26 @@ class SubmitComment extends \cmsgears\core\common\base\Widget {
 
 	public function renderWidget( $config = [] ) {
 
+		$siteProperties		= SiteProperties::getInstance();
+		$user				= Yii::$app->user->getIdentity();
+
+		// Comments are disabled
+		if( !$siteProperties->isComments() ) {
+
+			return;
+		}
+
+		// User is not logged in and public comments are disabled
+		if( !isset( $user ) && $siteProperties->isUserComments() ) {
+
+			return;
+		}
+
 		$formHtml = $this->render( $this->template, [ 'widget' => $this ] );
 
 		return Html::tag( 'div', $formHtml, $this->options );
 	}
 
 	// SubmitComment -------------------------
+
 }

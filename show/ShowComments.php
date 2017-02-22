@@ -9,6 +9,7 @@ use yii\widgets\LinkPager;
 
 // CMG Imports
 use cmsgears\core\common\config\CoreGlobal;
+use cmsgears\core\frontend\config\SiteProperties;
 
 use cmsgears\core\common\models\base\CoreTables;
 use cmsgears\core\common\models\resources\ModelComment;
@@ -59,7 +60,24 @@ class ShowComments extends \cmsgears\core\common\base\PageWidget {
 
 	// Constructor and Initialisation ------------------------------
 
+	public function init() {
+
+		parent::init();
+
+		$siteProperties		= SiteProperties::getInstance();
+
+		$this->limit		= $siteProperties->getCommentsLimit();
+	}
+
 	public function initModels( $config = [] ) {
+
+		$siteProperties			= SiteProperties::getInstance();
+
+		// Comments are disabled
+		if( !$siteProperties->isComments() ) {
+
+			return;
+		}
 
 		$modelCommentService	= Yii::$app->factory->get( 'modelCommentService' );
 
@@ -111,6 +129,19 @@ class ShowComments extends \cmsgears\core\common\base\PageWidget {
 	// CMG interfaces ------------------------
 
 	// CMG parent classes --------------------
+
+	public function renderWidget( $config = [] ) {
+
+		$siteProperties			= SiteProperties::getInstance();
+
+		// Comments are disabled
+		if( !$siteProperties->isComments() ) {
+
+			return;
+		}
+
+		return parent::renderWidget( $config );
+	}
 
 	// ShowComments --------------------------
 
