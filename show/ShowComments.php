@@ -9,7 +9,6 @@ use yii\widgets\LinkPager;
 
 // CMG Imports
 use cmsgears\core\common\config\CoreGlobal;
-use cmsgears\core\frontend\config\SiteProperties;
 
 use cmsgears\core\common\models\base\CoreTables;
 use cmsgears\core\common\models\resources\ModelComment;
@@ -60,60 +59,46 @@ class ShowComments extends \cmsgears\core\common\base\PageWidget {
 
 	// Constructor and Initialisation ------------------------------
 
-	public function init() {
-
-		parent::init();
-
-		$siteProperties		= SiteProperties::getInstance();
-
-		$this->limit		= $siteProperties->getCommentsLimit();
-	}
-
 	public function initModels( $config = [] ) {
-
-		$siteProperties			= SiteProperties::getInstance();
-
-		// Comments are disabled
-		if( !$siteProperties->isComments() ) {
-
-			return;
-		}
 
 		$modelCommentService	= Yii::$app->factory->get( 'modelCommentService' );
 
-		// Pagination
-		if( $this->pagination ) {
+		if( !$this->autoload ) {
 
-			$commentTable			= CoreTables::TABLE_MODEL_COMMENT;
-			$conditions[ 'type' ]	= $this->type;
+			// Pagination
+			if( $this->pagination ) {
 
-			if( isset( $this->status ) ) {
+				$commentTable			= CoreTables::TABLE_MODEL_COMMENT;
+				$conditions[ 'type' ]	= $this->type;
 
-				$conditions[ "$commentTable.status" ]	= $this->status;
+				if( isset( $this->status ) ) {
+
+					$conditions[ "$commentTable.status" ]	= $this->status;
+				}
+
+				// Init models
+				if( $this->parentId == null ) {
+
+					$this->dataProvider		= $modelCommentService->getPageByParentType( $this->parentType, [ 'conditions' => $conditions, 'limit' => $this->limit ] );
+					$this->modelPage		= $this->dataProvider->getModels();
+				}
+				else {
+
+					$this->dataProvider		= $modelCommentService->getPageByParent( $this->parentId, $this->parentType, [ 'conditions' => $conditions, 'limit' => $this->limit ] );
+					$this->modelPage		= $this->dataProvider->getModels();
+				}
 			}
-
-			// Init models
-			if( $this->parentId == null ) {
-
-				$this->dataProvider		= $modelCommentService->getPageByParentType( $this->parentType, [ 'conditions' => $conditions, 'limit' => $this->limit ] );
-				$this->modelPage		= $this->dataProvider->getModels();
-			}
+			// Use non pagination methods to retrieve all at once
 			else {
 
-				$this->dataProvider		= $modelCommentService->getPageByParent( $this->parentId, $this->parentType, [ 'conditions' => $conditions, 'limit' => $this->limit ] );
-				$this->modelPage		= $this->dataProvider->getModels();
-			}
-		}
-		// Use non pagination methods to retrieve all at once
-		else {
+				if( $this->parentId == null ) {
 
-			if( $this->parentId == null ) {
+					$this->modelPage	= $modelCommentService->getByParentType( $this->parentType, $this->type );
+				}
+				else {
 
-				$this->modelPage	= $modelCommentService->getByParentType( $this->parentType, $this->type );
-			}
-			else {
-
-				$this->modelPage	= $modelCommentService->getByParent( $this->parentId, $this->parentType, $this->type );
+					$this->modelPage	= $modelCommentService->getByParent( $this->parentId, $this->parentType, $this->type );
+				}
 			}
 		}
 	}
@@ -129,19 +114,6 @@ class ShowComments extends \cmsgears\core\common\base\PageWidget {
 	// CMG interfaces ------------------------
 
 	// CMG parent classes --------------------
-
-	public function renderWidget( $config = [] ) {
-
-		$siteProperties			= SiteProperties::getInstance();
-
-		// Comments are disabled
-		if( !$siteProperties->isComments() ) {
-
-			return;
-		}
-
-		return parent::renderWidget( $config );
-	}
 
 	// ShowComments --------------------------
 
