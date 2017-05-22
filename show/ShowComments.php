@@ -3,17 +3,12 @@ namespace cmsgears\widgets\comment\show;
 
 // Yii Imports
 use \Yii;
-use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\widgets\LinkPager;
 
 // CMG Imports
-use cmsgears\core\common\config\CoreGlobal;
+use cmsgears\core\frontend\config\SiteProperties;
 
 use cmsgears\core\common\models\base\CoreTables;
 use cmsgears\core\common\models\resources\ModelComment;
-
-use cmsgears\core\common\utilities\CodeGenUtil;
 
 /**
  * It shows the Comments for model type or a single model. It can also retrieve child comments using baseId of parent comment.
@@ -59,9 +54,25 @@ class ShowComments extends \cmsgears\core\common\base\PageWidget {
 
 	// Constructor and Initialisation ------------------------------
 
+	public function init() {
+
+		parent::init();
+
+		$siteProperties		= SiteProperties::getInstance();
+
+		$this->limit		= $siteProperties->getCommentsLimit();
+	}
+
 	public function initModels( $config = [] ) {
 
+		$siteProperties			= SiteProperties::getInstance();
 		$modelCommentService	= Yii::$app->factory->get( 'modelCommentService' );
+
+		// Comments are disabled
+		if( !$siteProperties->isComments() ) {
+
+			return;
+		}
 
 		if( !$this->autoload ) {
 
@@ -114,6 +125,19 @@ class ShowComments extends \cmsgears\core\common\base\PageWidget {
 	// CMG interfaces ------------------------
 
 	// CMG parent classes --------------------
+
+	public function renderWidget( $config = [] ) {
+
+		$siteProperties			= SiteProperties::getInstance();
+
+		// Comments are disabled
+		if( !$siteProperties->isComments() ) {
+
+			return;
+		}
+
+		return parent::renderWidget( $config );
+	}
 
 	// ShowComments --------------------------
 
