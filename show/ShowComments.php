@@ -5,7 +5,7 @@ namespace cmsgears\widgets\comment\show;
 use \Yii;
 
 // CMG Imports
-use cmsgears\core\frontend\config\SiteProperties;
+use cmsgears\core\common\config\CommentProperties;
 
 use cmsgears\core\common\models\base\CoreTables;
 use cmsgears\core\common\models\resources\ModelComment;
@@ -58,18 +58,18 @@ class ShowComments extends \cmsgears\core\common\base\PageWidget {
 
 		parent::init();
 
-		$siteProperties		= SiteProperties::getInstance();
+		$commentProperties	= CommentProperties::getInstance();
 
-		$this->limit		= $siteProperties->getCommentsLimit();
+		$this->limit		= $commentProperties->getCommentsLimit();
 	}
 
 	public function initModels( $config = [] ) {
 
-		$siteProperties			= SiteProperties::getInstance();
+		$commentProperties		= CommentProperties::getInstance();
 		$modelCommentService	= Yii::$app->factory->get( 'modelCommentService' );
 
 		// Comments are disabled
-		if( !$siteProperties->isComments() ) {
+		if( !$commentProperties->isComments() ) {
 
 			return;
 		}
@@ -128,10 +128,10 @@ class ShowComments extends \cmsgears\core\common\base\PageWidget {
 
 	public function renderWidget( $config = [] ) {
 
-		$siteProperties			= SiteProperties::getInstance();
+		$commentProperties	= CommentProperties::getInstance();
 
 		// Comments are disabled
-		if( !$siteProperties->isComments() ) {
+		if( !$commentProperties->isComments() ) {
 
 			return;
 		}
