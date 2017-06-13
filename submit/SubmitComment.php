@@ -2,19 +2,20 @@
 namespace cmsgears\widgets\comment\submit;
 
 // Yii Imports
-use \Yii;
+use Yii;
 use yii\helpers\Html;
 
 // CMG Imports
-use cmsgears\core\common\config\CoreGlobal;
 use cmsgears\core\common\config\CommentProperties;
 
 use cmsgears\core\common\models\resources\ModelComment;
 
+use cmsgears\core\common\base\Widget;
+
 /**
  * It allows users to submit comments for specific model using comment trait.
  */
-class SubmitComment extends \cmsgears\core\common\base\Widget {
+class SubmitComment extends Widget {
 
 	// Variables ---------------------------------------------------
 
@@ -75,17 +76,17 @@ class SubmitComment extends \cmsgears\core\common\base\Widget {
 
 	public function renderWidget( $config = [] ) {
 
-		$commentProperties		= CommentProperties::getInstance();
-		$user					= Yii::$app->user->getIdentity();
+		$commProperties		= CommentProperties::getInstance();
+		$user				= Yii::$app->user->getIdentity();
 
 		// Comments are disabled
-		if( !$commentProperties->isComments() ) {
+		if( !$commProperties->isComments() ) {
 
 			return;
 		}
 
 		// User is not logged in and public comments are disabled
-		if( !isset( $user ) && $commentProperties->isUserComments() ) {
+		if( !isset( $user ) && $commProperties->isUserComments() ) {
 
 			return;
 		}
