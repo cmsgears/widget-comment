@@ -1,6 +1,6 @@
 <?php
 // Yii Imports
-use yii\captcha\Captcha;
+use cmsgears\core\common\base\Captcha;
 
 $model				= $widget->model;
 $ajax				= $widget->ajax;
