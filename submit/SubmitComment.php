@@ -33,16 +33,10 @@ class SubmitComment extends Widget {
 
 	public $model			= null; // Model for which comment need to be submitted
 
-	public $ajax			= true;
-	public $ajaxUrl			= null; // CMT App Request - Submit Path
-
-    public $controller      = 'comment'; // CMT App Request - Controller
-    public $action          = 'create'; // CMT App Request - Action
-
     public $captcha			= true; // Used to show captcha based on configuration instead of user availability.
 
-    public $title           = null;	// Title for Submit Form.
-    public $successMessage  = null;	// Message displayed after success. It can be used to override default message sent back by server.
+    public $title			= null;	// Title for Submit Form.
+    public $success			= null;	// Success Message displayed after submit. It can be used to override default message sent back by server.
 
     /**
 	 * Comment type among comment, review or testimonial.
@@ -53,6 +47,14 @@ class SubmitComment extends Widget {
 	 * Check whether rating is required.
 	 */
     public $rating      	= false;
+
+	public $ajax			= true;
+	public $ajaxUrl			= null; // CMT App Request - Submit Path
+
+	// CMT JS Framework to handle ajax request
+	public $cmtApp			= 'comment';
+    public $cmtController	= 'comment';
+    public $cmtAction		= 'create';
 
 	// Protected --------------
 
@@ -76,24 +78,29 @@ class SubmitComment extends Widget {
 
 	public function renderWidget( $config = [] ) {
 
-		$commProperties		= CommentProperties::getInstance();
+		$commentProperties	= CommentProperties::getInstance();
 		$user				= Yii::$app->user->getIdentity();
 
-		// Comments are disabled
-		if( !$commProperties->isComments() ) {
+		// Comments are disabled by admin
+		if( !$commentProperties->isComments() ) {
 
 			return;
 		}
 
-		// User is not logged in and public comments are disabled
-		if( !isset( $user ) && $commProperties->isUserComments() ) {
+		// User is not logged in and public comments are disabled by admin for whole app
+		if( !isset( $user ) && $commentProperties->isUserComments() ) {
 
 			return;
 		}
 
-		$formHtml = $this->render( $this->template, [ 'widget' => $this ] );
+		$widgetHtml = $this->render( $this->template, [ 'widget' => $this ] );
 
-		return Html::tag( 'div', $formHtml, $this->options );
+		if( $this->wrap ) {
+
+			return Html::tag( 'div', $widgetHtml, $this->options );
+		}
+
+		return $widgetHtml;
 	}
 
 	// SubmitComment -------------------------
