@@ -2,7 +2,7 @@
 namespace cmsgears\widgets\comment\show;
 
 // Yii Imports
-use \Yii;
+use Yii;
 
 // CMG Imports
 use cmsgears\core\common\config\CommentProperties;
@@ -69,7 +69,7 @@ class ShowComments extends \cmsgears\core\common\base\PageWidget {
 		$modelCommentService	= Yii::$app->factory->get( 'modelCommentService' );
 
 		// Comments are disabled
-		if( !$commentProperties->isComments() ) {
+		if( $this->type == ModelComment::TYPE_COMMENT && !$commentProperties->isComments() ) {
 
 			return;
 		}
@@ -131,7 +131,7 @@ class ShowComments extends \cmsgears\core\common\base\PageWidget {
 		$commentProperties	= CommentProperties::getInstance();
 
 		// Comments are disabled
-		if( !$commentProperties->isComments() ) {
+		if( $this->type == ModelComment::TYPE_COMMENT && !$commentProperties->isComments() ) {
 
 			return;
 		}
