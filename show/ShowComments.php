@@ -79,8 +79,8 @@ class ShowComments extends \cmsgears\core\common\base\PageWidget {
 			// Pagination
 			if( $this->pagination ) {
 
-				$commentTable			= CoreTables::TABLE_MODEL_COMMENT;
-				$conditions[ 'type' ]	= $this->type;
+				$commentTable			            = CoreTables::TABLE_MODEL_COMMENT;
+				$conditions[ "$commentTable.type" ]	= $this->type;
 
 				if( isset( $this->status ) ) {
 
