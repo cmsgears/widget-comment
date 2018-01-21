@@ -1,12 +1,7 @@
 <?php
 namespace cmsgears\widgets\comment\show;
 
-// Yii Imports
-use \Yii;
-
 // CMG Imports
-use cmsgears\core\common\config\CoreGlobal;
-
 use cmsgears\core\common\models\resources\ModelComment;
 
 /**

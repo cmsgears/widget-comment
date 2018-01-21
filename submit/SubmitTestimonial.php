@@ -1,15 +1,11 @@
 <?php
 namespace cmsgears\widgets\comment\submit;
 
-// Yii Imports
-use \Yii;
-use yii\helpers\Html;
-
 // CMG Imports
 use cmsgears\core\common\models\resources\ModelComment;
 
 /**
- * It allows users to submit testimonails for specific model using comment trait.
+ * It allows users to submit testimonials for specific model using comment trait.
  */
 class SubmitTestimonial extends SubmitComment {
 
@@ -27,11 +23,11 @@ class SubmitTestimonial extends SubmitComment {
 
 	// Public -----------------
 
-    public $controller      = 'testimonial';
+	public $rating			= true;
 
-    public $rating      	= true;
+	public $type			= ModelComment::TYPE_TESTIMONIAL;
 
-	public $type 			= ModelComment::TYPE_TESTIMONIAL;
+	public $cmtController	= 'testimonial';
 
 	// Protected --------------
 
@@ -53,6 +49,6 @@ class SubmitTestimonial extends SubmitComment {
 
 	// CMG parent classes --------------------
 
-	// SubmitReview --------------------------
+	// SubmitTestimonial ---------------------
 
 }

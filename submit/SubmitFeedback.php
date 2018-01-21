@@ -1,10 +1,6 @@
 <?php
 namespace cmsgears\widgets\comment\submit;
 
-// Yii Imports
-use \Yii;
-use yii\helpers\Html;
-
 // CMG Imports
 use cmsgears\core\common\models\resources\ModelComment;
 
@@ -27,11 +23,11 @@ class SubmitFeedback extends SubmitComment {
 
 	// Public -----------------
 
-    public $controller      = 'feedback';
+	public $rating			= true;
 
-    public $rating      	= true;
+	public $type			= ModelComment::TYPE_FEEDBACK;
 
-	public $type 			= ModelComment::TYPE_FEEDBACK;
+	public $cmtController	= 'feedback';
 
 	// Protected --------------
 
