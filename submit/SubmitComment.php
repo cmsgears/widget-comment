@@ -47,6 +47,7 @@ class SubmitComment extends Widget {
 	 * Check whether rating is required.
 	 */
     public $rating      	= false;
+	public $ratingClass		= null;
 
 	public $ajax			= true;
 	public $ajaxUrl			= null; // CMT App Request - Submit Path
