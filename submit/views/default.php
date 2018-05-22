@@ -77,8 +77,8 @@ $cmtAction		= $widget->cmtAction;
 		</div>
 	<?php } ?>
 
-	<input type="hidden" name='ModelComment[type]' value="<?=$type?>">
-    <input type="submit" class='element-medium right' value="Submit">
+	<input type="hidden" name="ModelComment[type]" value="<?=$type?>" />
+    <input type="submit" class="element-medium right" value="Submit" />
 
     <div class="filler-height"></div>
 	<div class="message success"></div>

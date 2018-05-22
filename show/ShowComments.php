@@ -1,4 +1,12 @@
 <?php
+/**
+ * This file is part of CMSGears Framework. Please view License file distributed
+ * with the source code for license details.
+ *
+ * @link https://www.cmsgears.org/
+ * @copyright Copyright (c) 2015 VulpineCode Technologies Pvt. Ltd.
+ */
+
 namespace cmsgears\widgets\comment\show;
 
 // Yii Imports
@@ -10,10 +18,15 @@ use cmsgears\core\common\config\CommentProperties;
 use cmsgears\core\common\models\base\CoreTables;
 use cmsgears\core\common\models\resources\ModelComment;
 
+use cmsgears\core\common\base\PageWidget;
+
 /**
- * It shows the Comments for model type or a single model. It can also retrieve child comments using baseId of parent comment.
+ * ShowComments shows the Comments for model type or a single model. It can also retrieve
+ * child comments using baseId of parent comment.
+ *
+ * @since 1.0.0
  */
-class ShowComments extends \cmsgears\core\common\base\PageWidget {
+class ShowComments extends PageWidget {
 
 	// Variables ---------------------------------------------------
 
@@ -29,6 +42,10 @@ class ShowComments extends \cmsgears\core\common\base\PageWidget {
 
 	// Public -----------------
 
+	public $wrap = true;
+
+	public $singleOptions = [ 'class' => 'col col1' ];
+
 	/**
 	 * Parent Id used to access comments for single parent model.
 	 */
@@ -40,11 +57,11 @@ class ShowComments extends \cmsgears\core\common\base\PageWidget {
 	public $parentType	= null;
 
 	/**
-	 * Comment type among comment, review or testimonial.
+	 * Comment type among comment, review, feedback or testimonial.
 	 */
-	public $type		= ModelComment::TYPE_COMMENT;
+	public $type	= ModelComment::TYPE_COMMENT;
 
-	public $status		= ModelComment::STATUS_APPROVED;
+	public $status	= ModelComment::STATUS_APPROVED;
 
 	// Protected --------------
 
@@ -58,9 +75,9 @@ class ShowComments extends \cmsgears\core\common\base\PageWidget {
 
 		parent::init();
 
-		$commentProperties	= CommentProperties::getInstance();
+		$commentProperties = CommentProperties::getInstance();
 
-		$this->limit		= $commentProperties->getCommentsLimit();
+		$this->limit = $commentProperties->getCommentsLimit();
 	}
 
 	public function initModels( $config = [] ) {
@@ -84,31 +101,31 @@ class ShowComments extends \cmsgears\core\common\base\PageWidget {
 
 				if( isset( $this->status ) ) {
 
-					$conditions[ "$commentTable.status" ]	= $this->status;
+					$conditions[ "$commentTable.status" ] = $this->status;
 				}
 
 				// Init models
 				if( $this->parentId == null ) {
 
-					$this->dataProvider		= $modelCommentService->getPageByParentType( $this->parentType, [ 'conditions' => $conditions, 'limit' => $this->limit ] );
-					$this->modelPage		= $this->dataProvider->getModels();
+					$this->dataProvider	= $modelCommentService->getPageByParentType( $this->parentType, [ 'conditions' => $conditions, 'limit' => $this->limit ] );
+					$this->modelPage	= $this->dataProvider->getModels();
 				}
 				else {
 
-					$this->dataProvider		= $modelCommentService->getPageByParent( $this->parentId, $this->parentType, [ 'conditions' => $conditions, 'limit' => $this->limit ] );
-					$this->modelPage		= $this->dataProvider->getModels();
+					$this->dataProvider	= $modelCommentService->getPageByParent( $this->parentId, $this->parentType, [ 'conditions' => $conditions, 'limit' => $this->limit ] );
+					$this->modelPage	= $this->dataProvider->getModels();
 				}
 			}
-			// Use non pagination methods to retrieve all at once
+			// All at once
 			else {
 
 				if( $this->parentId == null ) {
 
-					$this->modelPage	= $modelCommentService->getByParentType( $this->parentType, $this->type );
+					$this->modelPage = $modelCommentService->getByParentType( $this->parentType, $this->type );
 				}
 				else {
 
-					$this->modelPage	= $modelCommentService->getByParent( $this->parentId, $this->parentType, $this->type );
+					$this->modelPage = $modelCommentService->getByParent( $this->parentId, $this->parentType, $this->type );
 				}
 			}
 		}
@@ -128,7 +145,7 @@ class ShowComments extends \cmsgears\core\common\base\PageWidget {
 
 	public function renderWidget( $config = [] ) {
 
-		$commentProperties	= CommentProperties::getInstance();
+		$commentProperties = CommentProperties::getInstance();
 
 		// Comments are disabled
 		if( $this->type == ModelComment::TYPE_COMMENT && !$commentProperties->isComments() ) {
