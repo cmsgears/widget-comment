@@ -33,6 +33,8 @@ class ShowReviews extends ShowComments {
 
 	// Public -----------------
 
+	public $title = 'Reviews';
+
 	public $type = ModelComment::TYPE_REVIEW;
 
 	// Protected --------------

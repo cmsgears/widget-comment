@@ -44,24 +44,26 @@ class ShowComments extends PageWidget {
 
 	public $wrap = true;
 
-	public $singleOptions = [ 'class' => 'col col1' ];
+	public $options	= [ 'class' => 'widget widget-basic widget-page widget-comments' ];
+
+	public $singleOptions = [ 'class' => 'card card-basic card-comment' ];
 
 	/**
 	 * Parent Id used to access comments for single parent model.
 	 */
-	public $parentId	= null;
+	public $parentId = null;
 
 	/**
 	 * Parent type to get comments specific to a parent if parent Id is provided else all comments for a particular parent type.
 	 */
-	public $parentType	= null;
+	public $parentType = null;
 
 	/**
 	 * Comment type among comment, review, feedback or testimonial.
 	 */
-	public $type	= ModelComment::TYPE_COMMENT;
+	public $type = ModelComment::TYPE_COMMENT;
 
-	public $status	= ModelComment::STATUS_APPROVED;
+	public $status = ModelComment::STATUS_APPROVED;
 
 	// Protected --------------
 
@@ -96,7 +98,8 @@ class ShowComments extends PageWidget {
 			// Pagination
 			if( $this->pagination ) {
 
-				$commentTable			            = CoreTables::TABLE_MODEL_COMMENT;
+				$commentTable = CoreTables::TABLE_MODEL_COMMENT;
+
 				$conditions[ "$commentTable.type" ]	= $this->type;
 
 				if( isset( $this->status ) ) {

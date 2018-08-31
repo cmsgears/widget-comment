@@ -33,9 +33,13 @@ class SubmitReview extends SubmitComment {
 
 	// Public -----------------
 
-	public $rating	= true;
+	public $wrap = true;
 
-	public $type	= ModelComment::TYPE_REVIEW;
+	public $options = [ 'class' => 'box box-basic box-comment-submit box-review-submit' ];
+
+	public $rating = true;
+
+	public $type = ModelComment::TYPE_REVIEW;
 
 	public $cmtController = 'review';
 
