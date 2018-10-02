@@ -9,9 +9,6 @@
 
 namespace cmsgears\widgets\comment\submit;
 
-// CMG Imports
-use cmsgears\core\common\models\resources\ModelComment;
-
 /**
  * SubmitFeedback allows users to submit reviews for specific model using comment trait.
  *
@@ -33,9 +30,9 @@ class SubmitFeedback extends SubmitComment {
 
 	// Public -----------------
 
-	public $rating	= true;
+	public $options = [ 'class' => 'box box-basic box-comment-submit box-feedback-submit' ];
 
-	public $type	= ModelComment::TYPE_FEEDBACK;
+	public $rating	= true;
 
 	public $cmtController = 'feedback';
 

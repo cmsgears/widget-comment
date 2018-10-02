@@ -42,6 +42,8 @@ class ShowComments extends PageWidget {
 
 	// Public -----------------
 
+	public $title = 'All Comments';
+
 	public $wrap = true;
 
 	public $options	= [ 'class' => 'widget widget-basic widget-page widget-comments' ];

@@ -9,9 +9,6 @@
 
 namespace cmsgears\widgets\comment\submit;
 
-// CMG Imports
-use cmsgears\core\common\models\resources\ModelComment;
-
 /**
  * SubmitReview allows users to submit reviews for specific model using comment trait.
  *
@@ -38,8 +35,6 @@ class SubmitReview extends SubmitComment {
 	public $options = [ 'class' => 'box box-basic box-comment-submit box-review-submit' ];
 
 	public $rating = true;
-
-	public $type = ModelComment::TYPE_REVIEW;
 
 	public $cmtController = 'review';
 

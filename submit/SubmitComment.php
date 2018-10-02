@@ -16,8 +16,6 @@ use yii\helpers\Html;
 // CMG Imports
 use cmsgears\core\common\config\CommentProperties;
 
-use cmsgears\core\common\models\resources\ModelComment;
-
 use cmsgears\core\common\base\Widget;
 
 /**
@@ -41,23 +39,32 @@ class SubmitComment extends Widget {
 
 	// Public -----------------
 
+	public $wrap = true;
+
+	public $options = [ 'class' => 'box box-basic box-comment-submit' ];
+
 	public $model	= null; // Model for which comment need to be submitted
 
     public $captcha	= true; // Used to show captcha based on configuration instead of user availability.
 
-    public $title	= null;	// Title for Submit Form.
+    public $title	= 'Write a Comment'; // Title for Submit Form.
     public $success	= null;	// Success Message displayed after submit. It can be used to override default message sent back by server.
-
-    /**
-	 * Comment type among comment, review or testimonial.
-	 */
-	public $type = ModelComment::TYPE_COMMENT;
 
 	/**
 	 * Check whether rating is required.
 	 */
     public $rating      = false;
 	public $ratingClass	= null;
+
+	/**
+	 * Show all fields.
+	 */
+	public $allFields = false;
+
+	/**
+	 * Show labels
+	 */
+	public $labels = false;
 
 	public $ajax	= true;
 	public $ajaxUrl	= null; // CMT App Request - Submit Path
@@ -90,6 +97,9 @@ class SubmitComment extends Widget {
 	public function renderWidget( $config = [] ) {
 
 		$commentProperties = CommentProperties::getInstance();
+
+		$this->allFields	= $commentProperties->isAllFields();
+		$this->labels		= $commentProperties->isLabels();
 
 		$user = Yii::$app->user->getIdentity();
 
