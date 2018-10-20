@@ -70,7 +70,7 @@ class SubmitComment extends Widget {
 	public $ajaxUrl	= null; // CMT App Request - Submit Path
 
 	// CMT JS Framework to handle ajax request
-	public $cmtApp			= 'core';
+	public $cmtApp			= 'comment';
     public $cmtController	= 'comment';
     public $cmtAction		= 'create';
 
