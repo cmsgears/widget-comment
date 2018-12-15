@@ -36,8 +36,6 @@ class SubmitFeedback extends SubmitComment {
 
 	public $cmtController = 'feedback';
 
-	public $type = 'feedback';
-
 	// Protected --------------
 
 	// Private ----------------
