@@ -1,16 +1,21 @@
 <?php
+/**
+ * This file is part of CMSGears Framework. Please view License file distributed
+ * with the source code for license details.
+ *
+ * @link https://www.cmsgears.org/
+ * @copyright Copyright (c) 2015 VulpineCode Technologies Pvt. Ltd.
+ */
+
 namespace cmsgears\widgets\comment\show;
 
-// Yii Imports
-use \Yii;
-
 // CMG Imports
-use cmsgears\core\common\config\CoreGlobal;
-
 use cmsgears\core\common\models\resources\ModelComment;
 
 /**
- * It shows the Testimonials for model type or a single model.
+ * ShowTestimonials shows the Testimonials for model type or a single model.
+ *
+ * @since 1.0.0
  */
 class ShowTestimonials extends ShowComments {
 
@@ -28,7 +33,7 @@ class ShowTestimonials extends ShowComments {
 
 	// Public -----------------
 
-	public $type 	= ModelComment::TYPE_TESTIMONIAL;
+	public $type = ModelComment::TYPE_TESTIMONIAL;
 
 	// Protected --------------
 

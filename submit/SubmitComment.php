@@ -1,4 +1,12 @@
 <?php
+/**
+ * This file is part of CMSGears Framework. Please view License file distributed
+ * with the source code for license details.
+ *
+ * @link https://www.cmsgears.org/
+ * @copyright Copyright (c) 2015 VulpineCode Technologies Pvt. Ltd.
+ */
+
 namespace cmsgears\widgets\comment\submit;
 
 // Yii Imports
@@ -8,12 +16,12 @@ use yii\helpers\Html;
 // CMG Imports
 use cmsgears\core\common\config\CommentProperties;
 
-use cmsgears\core\common\models\resources\ModelComment;
-
 use cmsgears\core\common\base\Widget;
 
 /**
- * It allows users to submit comments for specific model using comment trait.
+ * SubmitComment allows users to submit comments for specific model using comment trait.
+ *
+ * @since 1.0.0
  */
 class SubmitComment extends Widget {
 
@@ -31,28 +39,38 @@ class SubmitComment extends Widget {
 
 	// Public -----------------
 
-	public $model			= null; // Model for which comment need to be submitted
+	public $wrap = true;
 
-    public $captcha			= true; // Used to show captcha based on configuration instead of user availability.
+	public $options = [ 'class' => 'box box-basic box-comment-submit' ];
 
-    public $title			= null;	// Title for Submit Form.
-    public $success			= null;	// Success Message displayed after submit. It can be used to override default message sent back by server.
+	public $model	= null; // Model for which comment need to be submitted
 
-    /**
-	 * Comment type among comment, review or testimonial.
-	 */
-	public $type			= ModelComment::TYPE_COMMENT;
+    public $captcha	= true; // Used to show captcha based on configuration instead of user availability.
+
+    public $title	= 'Write a Comment'; // Title for Submit Form.
+    public $success	= null;	// Success Message displayed after submit. It can be used to override default message sent back by server.
 
 	/**
 	 * Check whether rating is required.
 	 */
-    public $rating      	= false;
+    public $rating      = false;
+	public $ratingClass	= null;
 
-	public $ajax			= true;
-	public $ajaxUrl			= null; // CMT App Request - Submit Path
+	/**
+	 * Show all fields.
+	 */
+	public $allFields = false;
+
+	/**
+	 * Show labels
+	 */
+	public $labels = false;
+
+	public $ajax	= true;
+	public $ajaxUrl	= null; // CMT App Request - Submit Path
 
 	// CMT JS Framework to handle ajax request
-	public $cmtApp			= 'comment';
+	public $cmtApp			= 'core';
     public $cmtController	= 'comment';
     public $cmtAction		= 'create';
 
@@ -78,8 +96,12 @@ class SubmitComment extends Widget {
 
 	public function renderWidget( $config = [] ) {
 
-		$commentProperties	= CommentProperties::getInstance();
-		$user				= Yii::$app->user->getIdentity();
+		$commentProperties = CommentProperties::getInstance();
+
+		$this->allFields	= $commentProperties->isAllFields();
+		$this->labels		= $commentProperties->isLabels();
+
+		$user = Yii::$app->user->getIdentity();
 
 		// Comments are disabled by admin
 		if( !$commentProperties->isComments() ) {

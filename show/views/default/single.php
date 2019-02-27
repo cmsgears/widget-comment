@@ -1,6 +1,5 @@
 <?php
 // Yii Imports
-use \Yii;
 use yii\helpers\Html;
 
 // CMG Imports
@@ -13,11 +12,11 @@ $avatar			= Yii::getAlias( "@images" ).'/user-icon-2.png';
 
 if( isset( $model->creator->avatar ) ) {
 
-	$avatar		= CodeGenUtil::getImageThumbTag( $model->creator->avatar, [ 'class' => 'fluid circled1' ] );
+	$avatar = CodeGenUtil::getImageThumbTag( $model->creator->avatar, [ 'class' => 'fluid circled1' ] );
 }
 else {
 
-	$avatar		= "<img class='fluid circled1' src='".$avatar."'>";
+	$avatar = "<img class=\"fluid circled circled1\" src=\"{$avatar}\">";
 }
 
 ?>
@@ -29,7 +28,7 @@ else {
 	<div class="col12x10">
 	   <div class="review clearfix">
             <div class="box-rating rating-secondary">
-                <?= yii::$app->formDesigner->getRatingStars( $rating, 5 ); ?>
+                <?= yii::$app->formDesigner->getRatingStars( [ 'selected' => $rating ] ); ?>
             </div>
 			<p class="font-size font-size-large-7"><?= $model->content ?></p>
 			<div class="filler-height filler-height-default"> </div>

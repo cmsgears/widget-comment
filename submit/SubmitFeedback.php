@@ -1,11 +1,18 @@
 <?php
+/**
+ * This file is part of CMSGears Framework. Please view License file distributed
+ * with the source code for license details.
+ *
+ * @link https://www.cmsgears.org/
+ * @copyright Copyright (c) 2015 VulpineCode Technologies Pvt. Ltd.
+ */
+
 namespace cmsgears\widgets\comment\submit;
 
-// CMG Imports
-use cmsgears\core\common\models\resources\ModelComment;
-
 /**
- * It allows users to submit reviews for specific model using comment trait.
+ * SubmitFeedback allows users to submit reviews for specific model using comment trait.
+ *
+ * @since 1.0.0
  */
 class SubmitFeedback extends SubmitComment {
 
@@ -23,11 +30,11 @@ class SubmitFeedback extends SubmitComment {
 
 	// Public -----------------
 
-	public $rating			= true;
+	public $options = [ 'class' => 'box box-basic box-comment-submit box-feedback-submit' ];
 
-	public $type			= ModelComment::TYPE_FEEDBACK;
+	public $rating	= true;
 
-	public $cmtController	= 'feedback';
+	public $cmtController = 'feedback';
 
 	// Protected --------------
 
