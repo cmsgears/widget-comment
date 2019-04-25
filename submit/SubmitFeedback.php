@@ -32,7 +32,7 @@ class SubmitFeedback extends SubmitComment {
 
 	public $options = [ 'class' => 'box box-basic box-comment-submit box-feedback-submit' ];
 
-	public $rating	= true;
+	public $rating = true;
 
 	public $cmtController = 'feedback';
 
