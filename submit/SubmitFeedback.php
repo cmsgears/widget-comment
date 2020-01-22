@@ -30,6 +30,8 @@ class SubmitFeedback extends SubmitComment {
 
 	// Public -----------------
 
+	public $title = 'Submit your Feedback'; // Title for Submit Form.
+
 	public $options = [ 'class' => 'box box-basic box-comment-submit box-feedback-submit' ];
 
 	public $rating = true;
