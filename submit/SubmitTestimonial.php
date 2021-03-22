@@ -30,6 +30,8 @@ class SubmitTestimonial extends SubmitComment {
 
 	// Public -----------------
 
+	public $title = 'Submit your Testimonial'; // Title for Submit Form.
+
 	public $options = [ 'class' => 'box box-basic box-comment-submit box-testimonial-submit' ];
 
 	public $rating = true;

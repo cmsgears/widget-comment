@@ -16,14 +16,12 @@ use yii\helpers\Html;
 // CMG Imports
 use cmsgears\core\common\config\CommentProperties;
 
-use cmsgears\core\common\base\Widget;
-
 /**
  * SubmitComment allows users to submit comments for specific model using comment trait.
  *
  * @since 1.0.0
  */
-class SubmitComment extends Widget {
+class SubmitComment extends \cmsgears\core\common\base\Widget {
 
 	// Variables ---------------------------------------------------
 
@@ -101,7 +99,7 @@ class SubmitComment extends Widget {
 		$this->allFields	= $commentProperties->isAllFields();
 		$this->labels		= $commentProperties->isLabels();
 
-		$user = Yii::$app->user->getIdentity();
+		$user = Yii::$app->core->getUser();
 
 		// Comments are disabled by admin
 		if( !$commentProperties->isComments() ) {

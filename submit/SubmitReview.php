@@ -32,6 +32,8 @@ class SubmitReview extends SubmitComment {
 
 	public $wrap = true;
 
+	public $title = 'Write your Review'; // Title for Submit Form.
+
 	public $options = [ 'class' => 'box box-basic box-comment-submit box-review-submit' ];
 
 	public $rating = true;
