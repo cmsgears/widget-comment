@@ -18,15 +18,13 @@ use cmsgears\core\common\config\CommentProperties;
 use cmsgears\core\common\models\base\CoreTables;
 use cmsgears\core\common\models\resources\ModelComment;
 
-use cmsgears\core\common\base\PageWidget;
-
 /**
  * ShowComments shows the Comments for model type or a single model. It can also retrieve
  * child comments using baseId of parent comment.
  *
  * @since 1.0.0
  */
-class ShowComments extends PageWidget {
+class ShowComments extends \cmsgears\core\common\base\PageWidget {
 
 	// Variables ---------------------------------------------------
 
@@ -97,27 +95,27 @@ class ShowComments extends PageWidget {
 
 		if( !$this->autoload ) {
 
+			$commentTable = CoreTables::TABLE_MODEL_COMMENT;
+
+			$conditions = [];
+
+			if( isset( $this->status ) ) {
+
+				$conditions[ "$commentTable.status" ] = $this->status;
+			}
+
 			// Pagination
 			if( $this->pagination ) {
-
-				$commentTable = CoreTables::TABLE_MODEL_COMMENT;
-
-				$conditions[ "$commentTable.type" ]	= $this->type;
-
-				if( isset( $this->status ) ) {
-
-					$conditions[ "$commentTable.status" ] = $this->status;
-				}
 
 				// Init models
 				if( $this->parentId == null ) {
 
-					$this->dataProvider	= $modelCommentService->getPageByParentType( $this->parentType, [ 'conditions' => $conditions, 'limit' => $this->limit ] );
+					$this->dataProvider	= $modelCommentService->getPageByParentType( $this->parentType, [ 'conditions' => $conditions, 'type' => $this->type, 'limit' => $this->limit ] );
 					$this->modelPage	= $this->dataProvider->getModels();
 				}
 				else {
 
-					$this->dataProvider	= $modelCommentService->getPageByParent( $this->parentId, $this->parentType, [ 'conditions' => $conditions, 'limit' => $this->limit ] );
+					$this->dataProvider	= $modelCommentService->getPageByParent( $this->parentId, $this->parentType, [ 'conditions' => $conditions, 'type' => $this->type, 'limit' => $this->limit ] );
 					$this->modelPage	= $this->dataProvider->getModels();
 				}
 			}
@@ -126,11 +124,11 @@ class ShowComments extends PageWidget {
 
 				if( $this->parentId == null ) {
 
-					$this->modelPage = $modelCommentService->getByParentType( $this->parentType, $this->type );
+					$this->modelPage = $modelCommentService->getByParentType( $this->parentType, $this->type, [ 'conditions' => $conditions, 'limit' => 0 ] );
 				}
 				else {
 
-					$this->modelPage = $modelCommentService->getByParent( $this->parentId, $this->parentType, $this->type );
+					$this->modelPage = $modelCommentService->getByParent( $this->parentId, $this->parentType, $this->type, [ 'conditions' => $conditions, 'limit' => 0 ] );
 				}
 			}
 		}
